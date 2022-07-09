@@ -1,27 +1,20 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from '@/components/HelloWorld.vue'
+import {RouterLink, RouterView} from 'vue-router'
+import NavBar from "./components/NavBar.vue";
+import FooterComponent from "./components/FooterComponent.vue";
 </script>
 
 <template>
   <header>
-   
     <div>
-
-      <navn class="flex w-full justify-between">
-        <!-- <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink> -->
-        <p>Hello</p>
-        <p>world</p>
-      </navn>
+      <NavBar/>
     </div>
   </header>
-
-  <RouterView />
+  <RouterView/>
+  <FooterComponent/>
 </template>
 
 <style>
-
 
 
 </style>

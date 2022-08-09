@@ -2,6 +2,7 @@
 import {RouterLink, RouterView} from 'vue-router'
 import NavBar from "./components/NavBar.vue";
 import FooterComponent from "./components/FooterComponent.vue";
+
 </script>
 
 <template>
@@ -11,10 +12,10 @@ import FooterComponent from "./components/FooterComponent.vue";
     </div>
   </header>
   <RouterView/>
+  <div>
+    
+  </div>
   <FooterComponent/>
 </template>
 
-<style>
 
-
-</style>

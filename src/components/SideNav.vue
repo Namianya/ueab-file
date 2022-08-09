@@ -1,14 +1,13 @@
 <template>
-
   <div>
     <router-link to="/" class="text-2xl font-bold btn btn-ghost ">
-      UEAB<span class="text-primary">FILE</span>
+      UEAB<span class="text-primary">FILES</span>
     </router-link>
-    <p>Add User</p>
     <div class="">
      <ReusableButton/>
     </div>
   </div>
+  
 </template>
 <script setup>
 import ReusableButton from "./ReusebleButton.vue";

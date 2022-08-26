@@ -9,8 +9,9 @@
   "dependencies": {
     "@heroicons/vue": "^1.0.6",
     "@vue-hero-icons/outline": "^1.7.2",
+    "@vueuse/firebase": "^9.1.1",
     "daisyui": "^2.18.1",
-    "firebase": "^9.9.2",
+    "firebase": "^9.9.3",
     "pinia": "^2.0.14",
     "vue": "^3.2.37",
     "vue-router": "^4.0.16"

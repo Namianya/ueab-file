@@ -1,6 +1,8 @@
 <script setup>
-import {ref} from "vue";
-import SideNav from "../components/SideNav.vue";
+import { getApp, getApps } from "@firebase/app";
+import { useAuth } from '@vueuse/firebase/useAuth';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { ref } from "vue";
 
 const isLoggedIn = ref(false);
 const departments = ref([
@@ -10,27 +12,32 @@ const departments = ref([
   'School of Education, Humanities and Social Sciences',
   'School of Science and Technology',
 ]);
+
+const app = getApps().length > 0 ? getApps()[0] : getApp();
+console.log(app);
+const auth = getAuth();
+const { isAuthenticated, user } = useAuth(auth)
+const signIn = () => signInWithPopup(getAuth(app), new GoogleAuthProvider());
+const signOut = () => auth.signOut();
 </script>
 
 <template>
-  <div v-if="!isLoggedIn" class=" min-h-screen flex justify-center items-center text-center ">
-    <div><p class="font-bold text-xl md:text-4xl mx-4">Welcome to UEAB</p>
+  <pre v-if="isAuthenticated">User Object{{ user }}
+  <div>
+    <button @click="signOut" class="btn btn-error">Sign Out</button>
+  </div>
+  </pre>
+  <div v-else class=" min-h-screen flex justify-center items-center text-center ">
+    <div>
+      <button @click="signIn">
+        Sign In with Google
+      </button>
+      <p class="font-bold text-xl md:text-4xl mx-4">Welcome to UEAB</p>
       <p class="mb-8">This is UEAB File System.</p>
-        <li @click="isLoggedIn=!isLoggedIn" class="btn btn-primary">
-          <router-link to="/login">Login to get started</router-link>
-        </li>
+      <li @click="signIn" class="btn btn-primary">
+        Login to get started.
+      </li>
     </div>
   </div>
-  <!-- <div class="min-h-screen p-4 md:px-10">
-    <p>Welcome Paul!</p>
-    <div>
-      <p class="font-medium text-3xl mb-4">Departments</p>
-      <SideNav/>
-      <div>
-        <p class="hover:text-primary duration-300 hover:font-medium hover:bg-blue-100 cursor-pointer rounded max-w-sm my-2 px-4 py-2"
-           v-for="department in departments"
-           :key="department">{{ department }}</p>
-      </div>
-    </div>
-  </div> -->
+
 </template>

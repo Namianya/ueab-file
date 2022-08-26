@@ -1,8 +1,9 @@
 <script setup>
 import { getApp, getApps } from "@firebase/app";
 import { useAuth } from '@vueuse/firebase/useAuth';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth';
 import { ref } from "vue";
+// import { router } from 'vue-router';
 
 const isLoggedIn = ref(false);
 const departments = ref([
@@ -17,7 +18,20 @@ const app = getApps().length > 0 ? getApps()[0] : getApp();
 console.log(app);
 const auth = getAuth();
 const { isAuthenticated, user } = useAuth(auth)
-const signIn = () => signInWithPopup(getAuth(app), new GoogleAuthProvider());
+const signIn = () => {
+  signInWithPopup(
+    getAuth(app), new GoogleAuthProvider(),
+  );
+
+};
+
+onAuthStateChanged(auth, user => {
+  if (user) {
+    // router.push('/table')
+  } else {
+    // router.push('/')
+  }
+})
 const signOut = () => auth.signOut();
 </script>
 
@@ -29,13 +43,10 @@ const signOut = () => auth.signOut();
   </pre>
   <div v-else class=" min-h-screen flex justify-center items-center text-center ">
     <div>
-      <button @click="signIn">
-        Sign In with Google
-      </button>
       <p class="font-bold text-xl md:text-4xl mx-4">Welcome to UEAB</p>
       <p class="mb-8">This is UEAB File System.</p>
       <li @click="signIn" class="btn btn-primary">
-        Login to get started.
+        Log In to get started.
       </li>
     </div>
   </div>

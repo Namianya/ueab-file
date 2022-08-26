@@ -1,12 +1,12 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 import { initializeApp } from "firebase/app";
+import { createPinia } from 'pinia';
+import { createApp } from 'vue';
 
-import App from './App.vue'
-import router from './router'
+import App from './App.vue';
+import router from './router';
 
-import './index.css'
-import {firebaseConfig} from "./firebase/init"
+import { firebaseConfig } from "./firebase/init";
+import './index.css';
 
 initializeApp(firebaseConfig);
 const app = createApp(App)

@@ -1,3 +1,4 @@
+import { getAuth } from 'firebase/auth'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
@@ -12,19 +13,22 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
     {
       path: '/table',
       name: 'table',
+      meta: {
+        requiresAuth: true
+      },
       component: () => import('../views/TableView.vue')
     },
     {
       path: '/register',
       name: 'signup',
+      meta: {
+        requiresAuth: false
+      },
       component: () => import('../components/inn/Registration.vue')
     },
     {
@@ -39,5 +43,25 @@ const router = createRouter({
     }
   ]
 })
+
+
+// chec for auth state changes
+// onAuthStateChanged(user => {
+//   if (user) {
+//     router.push('/table')
+//   } else {
+//     router.push('/login')
+//   }
+// })
+// rout guard
+// router.beforeEach((to, from, next) => {
+//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+//   const isAuthenticated = getAuth().currentUser
+//   if (requiresAuth && !isAuthenticated) {
+//     next('/login')
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

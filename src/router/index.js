@@ -16,7 +16,7 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/table',
+      path: '/tableview',
       name: 'table',
       meta: {
         requiresAuth: true
@@ -30,6 +30,14 @@ const router = createRouter({
         requiresAuth: false
       },
       component: () => import('../components/inn/Registration.vue')
+    },
+    {
+      path: '/landing',
+      name: 'landing',
+      // meta: {
+      //   requiresAuth: false
+      // },
+      component: () => import('../views/LandingPage.vue')
     },
     {
       path: '/login',

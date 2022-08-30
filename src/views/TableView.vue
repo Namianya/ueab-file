@@ -24,7 +24,7 @@
             <td class="text-green-500">Present</td>
             <td class="flex gap-1">
               <button class="btn btn-xs btn-secondary">retrive</button>
-              <button class="btn btn-xs btn-success">Returm</button>
+              <button class="btn btn-xs btn-success">Return</button>
               <button class="btn btn-xs btn-primary">History</button>
             </td>
           </tr>

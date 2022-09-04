@@ -1,6 +1,6 @@
-import { getFirestore,Timestamp, collection, getDocs, addDoc} from "firebase/firestore";
-import { type Ref, ref } from "vue";
-import  {type Student}  from "../types/student";
+import { addDoc, collection, getDocs, getFirestore, Timestamp } from "firebase/firestore";
+import { ref, type Ref } from "vue";
+import { type Student } from "../types/student";
 const students:Ref<Array<Student>> = ref([])
 
 export function getStudents(){
@@ -10,7 +10,8 @@ export function getStudents(){
     const collectionRef = collection(db, 'students') // get collection reference
 
     // get all students
-    function getAllStudents(){getDocs(collectionRef).then((querySnapshot) => {
+    function getAllStudents(){
+        getDocs(collectionRef).then((querySnapshot) => {
     gettingData.value = true // set the loading state to true
     querySnapshot.forEach((doc) => {
         students.value.push(doc.data() as Student ) // add doc objects to students array
@@ -22,17 +23,23 @@ export function getStudents(){
 
 
     const student:Ref<Student> = ref({
-        id:"WERRSWI233",
-        name: 'Grace',
-        age: 21,
-        school: 'Bara',
+        id:"",
+        name: '',
+        age: 0,
+        school: '',
         createdAt: Timestamp.now()
     })
 
     // add a new student
     const addStudent = async () => { 
         const docRef = await addDoc(collection(db, "students"), student.value);
-        console.log("Document written with ID: ", docRef.id);
+        student.value={
+            id:"",
+            name: '',
+            age: 0,
+            school: '',
+            createdAt: Timestamp.now()
+        }
     }
-    return {students, gettingData, addStudent, getAllStudents}
+    return {students, gettingData, addStudent, getAllStudents, student}
 }

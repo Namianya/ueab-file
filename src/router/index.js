@@ -32,6 +32,14 @@ const router = createRouter({
       component: () => import('../components/inn/Registration.vue')
     },
     {
+      path: '/students',
+      name: 'students',
+      meta: {
+        requiresAuth: false
+      },
+      component: () => import('../views/StudentDetailsPage.vue')
+    },
+    {
       path: '/landing',
       name: 'landing',
       // meta: {

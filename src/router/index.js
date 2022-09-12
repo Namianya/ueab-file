@@ -40,6 +40,54 @@ const router = createRouter({
       component: () => import('../views/StudentDetailsPage.vue')
     },
     {
+      path: '/addfile',
+      name: 'add-file',
+      meta: {
+        requiresAuth: false
+      },
+      component: () => import('../views/AddFileView.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      meta: {
+        requiresAuth: false
+      },
+      component: () => import('../views/admin/AdminView.vue'),
+      children: [
+        {
+          path: '',
+          name: 'dashboard',
+         
+          component: () => import('../views/admin/Dashboard.vue')
+        },
+        {
+          path: '',
+          name: 'recentActivity',
+         
+          component: () => import('../views/admin/RecentActivity.vue')
+        },
+        {
+          path: '',
+          name: 'users',
+         
+          component: () => import('../views/admin/Users.vue')
+        },
+        {
+          path: '',
+          name: 'admins',
+         
+          component: () => import('../views/admin/Admins.vue')
+        },
+        {
+          path: '',
+          name: 'getreports',
+         
+          component: () => import('../views/admin/GetReports.vue')
+        },
+      ]
+    },
+    {
       path: '/landing',
       name: 'landing',
       // meta: {

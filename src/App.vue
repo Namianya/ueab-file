@@ -18,7 +18,7 @@ import NavBar from "./components/NavBar.vue";
   <div>
 
   </div>
-  <FooterComponent />
+  <!-- <FooterComponent /> -->
 </template>
 
 

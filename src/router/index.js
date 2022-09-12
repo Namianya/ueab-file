@@ -1,4 +1,4 @@
-import { getAuth } from 'firebase/auth'
+import {getAuth, onAuthStateChanged} from "firebase/auth";
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
@@ -27,7 +27,7 @@ const router = createRouter({
       path: '/register',
       name: 'signup',
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       },
       component: () => import('../components/inn/Registration.vue')
     },
@@ -35,7 +35,7 @@ const router = createRouter({
       path: '/students',
       name: 'students',
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       },
       component: () => import('../views/StudentDetailsPage.vue')
     },
@@ -43,7 +43,7 @@ const router = createRouter({
       path: '/addfile',
       name: 'add-file',
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       },
       component: () => import('../views/AddFileView.vue')
     },
@@ -51,7 +51,7 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       meta: {
-        requiresAuth: false
+        requiresAuth: true
       },
       component: () => import('../views/admin/AdminView.vue'),
       children: [
@@ -108,24 +108,32 @@ const router = createRouter({
   ]
 })
 
+const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+      const removeListener = onAuthStateChanged(
+          getAuth(),
+          (user) => {
+              removeListener();
+              resolve(user);
+          },
+          reject,
+      )
+  });
+}
 
-// chec for auth state changes
-// onAuthStateChanged(user => {
-//   if (user) {
-//     router.push('/table')
-//   } else {
-//     router.push('/login')
-//   }
-// })
-// rout guard
-// router.beforeEach((to, from, next) => {
-//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
-//   const isAuthenticated = getAuth().currentUser
-//   if (requiresAuth && !isAuthenticated) {
-//     next('/login')
-//   } else {
-//     next()
-//   }
-// })
+
+router.beforeEach(async (to, from, next) => {
+  //  check if auth is required
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+          if (await getCurrentUser()) {
+              next();
+          } else {
+              next("/",);
+          }
+  
+      } else {
+          next();
+      }
+  })
 
 export default router

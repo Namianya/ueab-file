@@ -10,7 +10,6 @@
             <th>Second Name</th>
             <th>Last Name</th>
             <th>Status</th>
-
             <th>Action</th>
           </tr>
         </thead>
